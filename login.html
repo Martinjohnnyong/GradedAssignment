@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FinTech Blockchain Service</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body style="background-color: azure;">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark container">
+            <a class="navbar-brand" href="index.html">FinTech Blockchain</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wallet.html">Digital Wallet</a></li>
+                    <li class="nav-item"><a class="nav-link" href="security.html">Security</a></li>
+                    <li class="nav-item d-none" id="loginLink"><a class="nav-link" href="login.html">Login</a></li>
+                    <li class="nav-item d-none" id="signupLink"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                    <li class="nav-item d-none" id="profileLink"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item d-none" id="logoutLink"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section id="login" class="container my-5">
+        <h2>Login</h2>
+        <form onsubmit="loginUser(event)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="number">Number</label>
+                <input type="text" id="number" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div id="errorMessage" class="text-danger mt-2"></div>
+    </section>
+
+    
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+        function loginUser(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const number = document.getElementById('number').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Assuming validation of email and password against stored credentials
+            const storedEmail = localStorage.getItem('email');
+            const storedPassword = localStorage.getItem('password');
+
+            if (email === storedEmail && password === storedPassword) {
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('name', name);
+                localStorage.setItem('number', number);
+                alert('Login successful! Redirecting to profile page...');
+                window.location.href = 'profile.html';
+            } else {
+                document.getElementById('errorMessage').innerText = 'Invalid email or password.';
+            }
+        }
+    </script>
+</body>
+</html>

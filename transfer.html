@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Money | FinTech Blockchain Service</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body style="background-color: azure;">
+    <header class="bg-dark text-white">
+        <nav class="navbar navbar-expand-md navbar-dark container">
+            <a class="navbar-brand" href="index.html">FinTech Blockchain</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wallet.html">Digital Wallet</a></li>
+                    <li class="nav-item"><a class="nav-link" href="security.html">Security</a></li>
+                    <li class="nav-item d-none" id="loginLink"><a class="nav-link" href="login.html">Login</a></li>
+                    <li class="nav-item d-none" id="signupLink"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                    <li class="nav-item d-none" id="profileLink"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item d-none" id="logoutLink"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="container mt-5">
+        <h2>Transfer Money</h2>
+        <p>Transfer money to other users securely and instantly.</p>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Transfer Details</h3>
+            </div>
+            <div class="card-body">
+                <form id="transferForm">
+                    <div class="form-group">
+                        <label for="recipientNumber">Recipient Phone Number:</label>
+                        <input type="text" class="form-control" id="recipientNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transferAmount">Amount (in USD):</label>
+                        <input type="number" class="form-control" id="transferAmount" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Transfer</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Available Balance</h3>
+            </div>
+            <div class="card-body">
+                <p id="availableBalance" class="text-muted">$0</p>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'index.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('isLoggedIn')) {
+                document.getElementById('loginLink').classList.add('d-none');
+                document.getElementById('signupLink').classList.add('d-none');
+                document.getElementById('profileLink').classList.remove('d-none');
+                document.getElementById('logoutLink').classList.remove('d-none');
+            } else {
+                document.getElementById('loginLink').classList.remove('d-none');
+                document.getElementById('signupLink').classList.remove('d-none');
+            }
+
+            // Display available balance
+            const balance = localStorage.getItem('walletBalance') || 0;
+            document.getElementById('availableBalance').innerText = `$${parseFloat(balance).toFixed(2)}`;
+        });
+
+        document.getElementById('transferForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const recipientNumber = document.getElementById('recipientNumber').value;
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+            let currentBalance = parseFloat(localStorage.getItem('walletBalance')) || 0;
+
+            if (amount > currentBalance) {
+                alert('Insufficient wallet balance.');
+                return;
+            }
+
+            currentBalance -= amount;
+            localStorage.setItem('walletBalance', currentBalance);
+            document.getElementById('availableBalance').innerText = `$${currentBalance.toFixed(2)}`;
+
+            // Add transaction to history
+            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            transactions.push({
+                type: 'Transfer',
+                amount: amount,
+                date: new Date().toLocaleString(),
+                details: `Transferred to ${recipientNumber}`
+            });
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+
+            alert(`Transferred $${amount.toFixed(2)} to ${recipientNumber}. Remaining balance: $${currentBalance.toFixed(2)}`);
+        });
+    </script>
+</body>
+</html>

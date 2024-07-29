@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Cryptocurrency | FinTech Blockchain Service</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body style="background-color: azure;">
+    <header class="bg-dark text-white">
+        <nav class="navbar navbar-expand-md navbar-dark container">
+            <a class="navbar-brand" href="index.html">FinTech Blockchain</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wallet.html">Digital Wallet</a></li>
+                    <li class="nav-item"><a class="nav-link" href="security.html">Security</a></li>
+                    <li class="nav-item d-none" id="loginLink"><a class="nav-link" href="login.html">Login</a></li>
+                    <li class="nav-item d-none" id="signupLink"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                    <li class="nav-item d-none" id="profileLink"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item d-none" id="logoutLink"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="container mt-5">
+        <h2>Purchase <span id="cryptoName"></span></h2>
+        <form id="purchaseForm">
+            <div class="form-group">
+                <label for="cryptoAmount">Amount (in USD):</label>
+                <input type="number" class="form-control" id="cryptoAmount" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Purchase</button>
+        </form>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            window.location.href = 'index.html';
+        }
+
+        function recordTransaction(type, amount, details) {
+            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            const date = new Date().toISOString();
+            transactions.push({ date, type, amount, details });
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const crypto = urlParams.get('crypto');
+            document.getElementById('cryptoName').innerText = crypto;
+
+            if (localStorage.getItem('isLoggedIn')) {
+                document.getElementById('loginLink').classList.add('d-none');
+                document.getElementById('signupLink').classList.add('d-none');
+                document.getElementById('profileLink').classList.remove('d-none');
+                document.getElementById('logoutLink').classList.remove('d-none');
+            } else {
+                document.getElementById('loginLink').classList.remove('d-none');
+                document.getElementById('signupLink').classList.remove('d-none');
+            }
+
+            document.getElementById('purchaseForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const amount = parseFloat(document.getElementById('cryptoAmount').value);
+                const currentBalance = parseFloat(localStorage.getItem('walletBalance')) || 0;
+
+                if (amount > currentBalance) {
+                    alert('Insufficient funds.');
+                } else {
+                    const newBalance = currentBalance - amount;
+                    localStorage.setItem('walletBalance', newBalance.toFixed(2));
+                    
+                    // Record the transaction
+                    recordTransaction('Purchase', amount, `Purchased ${crypto}`);
+                    
+                    alert('Purchase successful! New balance: $' + newBalance.toFixed(2));
+                    window.location.href = 'wallet.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
