@@ -37,9 +37,9 @@
                 <input type="number" class="form-control" id="cryptoAmount" required>
             </div>
             <button type="submit" class="btn btn-primary">Purchase</button>
+            <p id="loginAlert" class="text-danger d-none">You must be logged in to make a purchase.</p>
         </form>
     </section>
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -64,7 +64,9 @@
             const crypto = urlParams.get('crypto');
             document.getElementById('cryptoName').innerText = crypto;
 
-            if (localStorage.getItem('isLoggedIn')) {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+            if (isLoggedIn) {
                 document.getElementById('loginLink').classList.add('d-none');
                 document.getElementById('signupLink').classList.add('d-none');
                 document.getElementById('profileLink').classList.remove('d-none');
@@ -72,6 +74,12 @@
             } else {
                 document.getElementById('loginLink').classList.remove('d-none');
                 document.getElementById('signupLink').classList.remove('d-none');
+                document.getElementById('loginAlert').classList.remove('d-none');
+                document.getElementById('purchaseForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('You must be logged in to make a purchase.');
+                });
+                return; // Stop further execution if not logged in
             }
 
             document.getElementById('purchaseForm').addEventListener('submit', (e) => {

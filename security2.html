@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services | FinTech Blockchain Service</title>
+    <title>Security | FinTech Blockchain Service</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
@@ -11,18 +11,20 @@
 <body style="background-color: azure;">
     <header class="bg-dark text-white">
         <nav class="navbar navbar-expand-md navbar-dark container">
-            <a class="navbar-brand" href="index.html">FinTech Blockchain</a>
+            <a class="navbar-brand" href="index2.html">FinTech Blockchain</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="security.html">Security</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index2.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services2.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="wallet.html">Digital Wallet</a></li>
+                    <li class="nav-item"><a class="nav-link" href="security2.html">Security</a></li>
                     <li class="nav-item d-none" id="loginLink"><a class="nav-link" href="login.html">Login</a></li>
                     <li class="nav-item d-none" id="signupLink"><a class="nav-link" href="signup.html">Sign Up</a></li>
                     <li class="nav-item d-none" id="profileLink"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item d-none" id="Contact Us"><a class="nav-link" href="Contact Us">Contact Us</a></li>
                     <li class="nav-item d-none" id="logoutLink"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
                 </ul>
             </div>
@@ -30,46 +32,34 @@
     </header>
 
     <section class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="images/fintech.jpg" class="img-fluid h-100 w-100" alt="FinTech Services">
-            </div>
-            <div class="col-md-6 d-flex align-items-center">
-                <div>
-                    <h2>Our Services</h2>
-                    <p>FinTech Blockchain Service offers a variety of services to cater to your financial and digital needs:</p>
-                    <ul>
-                        <li>Blockchain Consulting: Expert advice on how to integrate blockchain technology into your business.</li>
-                        <li>Smart Contract Development: Custom smart contracts to automate processes and reduce costs.</li>
-                        <li>Cryptocurrency Exchange: Secure platform for buying, selling, and trading cryptocurrencies.</li>
-                        <li>Digital Wallets: Safe and easy-to-use digital wallets for managing your cryptocurrencies.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <h2>Security</h2>
+        <p>At FinTech Blockchain Service, we prioritize your security. Our blockchain technology ensures that all transactions are secure and transparent. Here are some of the security features we offer:</p>
+        <ul>
+            <li>End-to-End Encryption: All data is encrypted to ensure that only authorized parties can access it.</li>
+            <li>Two-Factor Authentication: An extra layer of security to protect your account.</li>
+            <li>Regular Security Audits: We conduct regular audits to identify and address potential vulnerabilities.</li>
+            <li>Secure Wallets: Our digital wallets are protected with the latest security protocols.</li>
+        </ul>
     </section>
-
+    
+    
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
-
+    
     <script>
         function logout() {
             localStorage.removeItem('isLoggedIn');
             window.location.href = 'index.html';
         }
-
+    
         document.addEventListener('DOMContentLoaded', (event) => {
             if (localStorage.getItem('isLoggedIn')) {
                 document.getElementById('loginLink').classList.add('d-none');
-                document.getElementById('signupLink').classList.add('d-none');
                 document.getElementById('profileLink').classList.remove('d-none');
                 document.getElementById('logoutLink').classList.remove('d-none');
-            } else {
-                document.getElementById('loginLink').classList.remove('d-none');
-                document.getElementById('signupLink').classList.remove('d-none');
             }
         });
     </script>
