@@ -47,7 +47,6 @@ function processPayment(event) {
 
     if (cardNumber && expiryDate && cvv && amount) {
         // Simulate processing payment
-        // Here you would typically make an AJAX call to your server to process the payment
         alert('Payment successful! Redirecting to wallet page...');
         // Update balance in local storage
         let balance = localStorage.getItem('walletBalance') || 0;
