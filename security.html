@@ -20,10 +20,11 @@
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="security.html">Security</a></li>
-                    <li class="nav-item d-none" id="loginLink"><a class="nav-link" href="login.html">Login</a></li>
-                    <li class="nav-item d-none" id="signupLink"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                    <li class="nav-item" id="loginLink"><a class="nav-link" href="login.html">Login</a></li>
+                    <li class="nav-item" id="signupLink"><a class="nav-link" href="signup.html">Sign Up</a></li>
                     <li class="nav-item d-none" id="profileLink"><a class="nav-link" href="profile.html">Profile</a></li>
                     <li class="nav-item d-none" id="logoutLink"><a class="nav-link" href="#" onclick="logout()">Logout</a></li>
+                </ul>
             </div>
         </nav>
     </header>
@@ -38,8 +39,7 @@
             <li>Secure Wallets: Our digital wallets are protected with the latest security protocols.</li>
         </ul>
     </section>
-    
-    
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -51,12 +51,19 @@
             localStorage.removeItem('isLoggedIn');
             window.location.href = 'index.html';
         }
-    
+
         document.addEventListener('DOMContentLoaded', (event) => {
-            if (localStorage.getItem('isLoggedIn')) {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn) {
                 document.getElementById('loginLink').classList.add('d-none');
+                document.getElementById('signupLink').classList.add('d-none');
                 document.getElementById('profileLink').classList.remove('d-none');
                 document.getElementById('logoutLink').classList.remove('d-none');
+            } else {
+                document.getElementById('loginLink').classList.remove('d-none');
+                document.getElementById('signupLink').classList.remove('d-none');
+                document.getElementById('profileLink').classList.add('d-none');
+                document.getElementById('logoutLink').classList.add('d-none');
             }
         });
     </script>
