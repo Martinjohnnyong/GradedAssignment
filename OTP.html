@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Method | FinTech Blockchain Service</title>
+    <title>OTP Verification | FinTech Blockchain Service</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -30,49 +30,40 @@
         </nav>
     </header>
 
-    <section id="payment-method" class="container my-5">
-        <h2>Choose Payment Method</h2>
+    <section id="otp-verification" class="container my-5">
+        <h2>OTP Verification</h2>
         <div class="form-group">
-            <button class="btn btn-primary" onclick="payNow()">Pay Now</button>
-            <button class="btn btn-secondary" onclick="bankTransfer()">Bank Transfer</button>
-        </div>
-        <div id="bankTransferForm" class="mt-3 d-none">
-            <h4>Enter Card Details</h4>
-            <input type="text" id="cardNumber" class="form-control" placeholder="Card Number">
-            <input type="text" id="cardName" class="form-control mt-2" placeholder="Cardholder Name">
-            <input type="text" id="expiryDate" class="form-control mt-2" placeholder="Expiry Date (MM/YY)">
-            <input type="text" id="cvv" class="form-control mt-2" placeholder="CVV">
-            <button class="btn btn-success mt-2" onclick="submitBankTransfer()">Submit</button>
+            <input type="text" id="otp" class="form-control" placeholder="Enter OTP">
+            <button class="btn btn-primary mt-3" onclick="submitOtp()">Submit</button>
         </div>
     </section>
 
     <script>
-        function payNow() {
-            window.location.href = 'paynow.html';
-        }
+        function submitOtp() {
+            const otp = document.getElementById('otp').value;
 
-        function bankTransfer() {
-            document.getElementById('bankTransferForm').classList.remove('d-none');
-        }
+            // Check if the OTP field is not empty
+            if (otp) {
+                const topupAmount = parseFloat(localStorage.getItem('pendingTopupAmount')) || 0;
+                let currentBalance = parseFloat(localStorage.getItem('walletBalance')) || 0;
+                currentBalance += topupAmount;
 
-        function submitBankTransfer() {
-            const cardNumber = document.getElementById('cardNumber').value;
-            const cardName = document.getElementById('cardName').value;
-            const expiryDate = document.getElementById('expiryDate').value;
-            const cvv = document.getElementById('cvv').value;
+                localStorage.setItem('walletBalance', currentBalance.toFixed(2));
+                recordTransaction('Top-Up', topupAmount, 'Payment via Bank Transfer');
 
-            // Validate the card details (basic validation)
-            if (!cardNumber || !cardName || !expiryDate || !cvv) {
-                alert('Please fill in all card details.');
-                return;
+                localStorage.removeItem('pendingTopupAmount');
+
+                window.location.href = 'wallet.html'; // Redirect to wallet page
+            } else {
+                alert('Please enter an OTP.');
             }
+        }
 
-            // Store top-up amount temporarily
-            const topupAmount = parseFloat(localStorage.getItem('topupAmount')) || 0;
-            localStorage.setItem('pendingTopupAmount', topupAmount);
-
-            // Redirect to OTP page
-            window.location.href = 'otp.html';
+        function recordTransaction(type, amount, details) {
+            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            const date = new Date().toISOString();
+            transactions.push({ date, type, amount, details });
+            localStorage.setItem('transactions', JSON.stringify(transactions));
         }
 
         document.addEventListener('DOMContentLoaded', () => {
