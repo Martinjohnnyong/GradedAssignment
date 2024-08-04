@@ -9,12 +9,13 @@
     <style>
         .carousel-item img {
             width: 100%;
-            height: 500px; /* Set the desired height */
-            object-fit: cover; /* Ensure the image covers the entire area */
+            height: 500px;
+            object-fit: cover;
         }
     </style>
 </head>
-<body style="background-color: azure;">
+<body>
+
     <header class="bg-dark text-white">
         <nav class="navbar navbar-expand-md navbar-dark container">
             <a class="navbar-brand" href="index.html">FinTech Blockchain</a>
@@ -26,7 +27,6 @@
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="security.html">Security</a></li>
-                    
                     <li class="nav-item d-none" id="loginLink"><a class="nav-link" href="login.html">Login</a></li>
                     <li class="nav-item d-none" id="signupLink"><a class="nav-link" href="signup.html">Sign Up</a></li>
                     <li class="nav-item d-none" id="profileLink"><a class="nav-link" href="profile.html">Profile</a></li>
@@ -35,7 +35,6 @@
             </div>
         </nav>
     </header>
-
 
     <section class="container mt-5">
         <h1>Welcome to FinTech Blockchain Service</h1>
@@ -47,7 +46,6 @@
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -74,7 +72,7 @@
                     <img src="images/Litecoin.jpeg" class="d-block w-100" alt="FinTech Solutions">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>FinTech Solutions</h5>
-                        <p>litecoin.</p>
+                        <p>Litecoin.</p>
                     </div>
                 </div>
             </div>
@@ -92,52 +90,39 @@
         <ul class="list-group mt-4">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Bitcoin (BTC) 53000
-                <button class="btn btn-primary btn-sm" >Buy</button>
+                <button class="btn btn-primary btn-sm">Buy</button>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Ethereum (ETH) 2700
-                <button class="btn btn-primary btn-sm" >Buy</button>
+                <button class="btn btn-primary btn-sm">Buy</button>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Ripple (XRP) 300
-                <button class="btn btn-primary btn-sm" >Buy</button>
+                <button class="btn btn-primary btn-sm">Buy</button>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Litecoin (LTC) 480
-                <button class="btn btn-primary btn-sm" >Buy</button>
+                <button class="btn btn-primary btn-sm">Buy</button>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                Bitcoin Cash (BCH) 230
+                Bitcoin Cash (BCH) 680
                 <button class="btn btn-primary btn-sm">Buy</button>
             </li>
         </ul>
     </section>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
+    <footer class="bg-dark text-white mt-5">
+        <div class="container py-3">
+            <p class="mb-0 text-center">&copy; 2024 FinTech Blockchain Service. All rights reserved.</p>
+        </div>
+    </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         function logout() {
-            localStorage.removeItem('isLoggedIn');
-            window.location.href = 'index.html';
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('isLoggedIn')) {
-                document.getElementById('loginLink').classList.add('d-none');
-                document.getElementById('signupLink').classList.add('d-none');
-                document.getElementById('profileLink').classList.remove('d-none');
-                document.getElementById('logoutLink').classList.remove('d-none');
-            } else {
-                document.getElementById('loginLink').classList.remove('d-none');
-                document.getElementById('signupLink').classList.remove('d-none');
-            }
-        });
-
-        function purchaseCrypto(crypto) {
-            window.location.href = 'purchase.html?crypto=' + crypto;
+            // Add logout functionality
         }
     </script>
 </body>
