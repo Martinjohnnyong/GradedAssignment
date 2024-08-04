@@ -5,15 +5,9 @@ body {
     background-color: beige;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #343a40;
-}
+
 
 /* Header Styles */
-header {
-    background-color: #343a40;
-    color: white;
-}
 
 .navbar-brand {
     font-size: 1.5rem;
@@ -48,11 +42,6 @@ header {
 
 .card-body {
     padding: 20px;
-}
-
-.form-group label {
-    font-weight: bold;
-    color: #343a40;
 }
 
 .form-control {

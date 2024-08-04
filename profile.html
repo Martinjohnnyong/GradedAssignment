@@ -9,7 +9,7 @@
 </head>
 <body style="background-color: azure;">
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark container">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark container">
             <a class="navbar-brand" href="index.html">FinTech Blockchain</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -28,102 +28,9 @@
         </nav>
     </header>
 
-    <section id="profile" class="container my-5">
-        <h2>Profile</h2>
-        <div id="profileInfo">
-            <p><strong>Username:</strong> <span id="profileUsername"></span></p>
-            <p><strong>Email:</strong> <span id="profileEmail"></span></p>
-            <p><strong>Full Name:</strong> <span id="profileName"></span></p>
-            <p><strong>Phone Number:</strong> <span id="profileNumber"></span></p>
-        </div>
-        <h3>Transaction History</h3>
-        <div id="transactionHistory" class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Amount</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody id="transactionTableBody">
-                    <!-- Transactions will be dynamically inserted here -->
-                </tbody>
-            </table>
-        </div>
-        <button class="btn btn-danger mt-3" onclick="clearTransactionHistory()">Clear Transaction History</button>
-    </section>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/script.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (!isLoggedIn) {
-                alert('You are not logged in. Redirecting to login page...');
-                window.location.href = 'login.html';
-                return;
-            }
-
-            const username = localStorage.getItem('username');
-            const email = localStorage.getItem('email');
-            const name = localStorage.getItem('name');
-            const number = localStorage.getItem('number');
-
-            document.getElementById('profileUsername').textContent = username;
-            document.getElementById('profileEmail').textContent = email;
-            document.getElementById('profileName').textContent = name;
-            document.getElementById('profileNumber').textContent = number;
-
-            loadTransactionHistory();
-
-            // Show/hide login/signup/profile/logout links
-            if (isLoggedIn) {
-                document.getElementById('loginLink').classList.add('d-none');
-                document.getElementById('signupLink').classList.add('d-none');
-                document.getElementById('profileLink').classList.remove('d-none');
-                document.getElementById('logoutLink').classList.remove('d-none');
-            } else {
-                document.getElementById('loginLink').classList.remove('d-none');
-                document.getElementById('signupLink').classList.remove('d-none');
-                document.getElementById('profileLink').classList.add('d-none');
-                document.getElementById('logoutLink').classList.add('d-none');
-            }
-        });
-
-        function loadTransactionHistory() {
-            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-            const transactionTableBody = document.getElementById('transactionTableBody');
-            transactionTableBody.innerHTML = '';
-            transactions.forEach(transaction => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${transaction.date}</td>
-                    <td>${transaction.type}</td>
-                    <td>${transaction.amount}</td>
-                    <td>${transaction.details}</td>
-                `;
-                transactionTableBody.appendChild(row);
-            });
-        }
-
-        function clearTransactionHistory() {
-            if (confirm('Are you sure you want to clear your transaction history?')) {
-                localStorage.removeItem('transactions');
-                loadTransactionHistory();
-                alert('Transaction history cleared.');
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('isLoggedIn');
-            alert('You have been logged out.');
-            window.location.href = 'index.html';
-        }
-    </script>
 </body>
 </html>
